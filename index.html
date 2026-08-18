@@ -307,9 +307,9 @@
                         rotationOrigin: 'center center',
                         icon: L.icon({
                             iconUrl: 'markers/CROQUIS.svg',
-                            iconSize: [20, 20],
-                            iconAnchor: [10, 10],
-                            popupAnchor: [0, -10]
+                            iconSize: [22, 22],
+                            iconAnchor: [11, 11],
+                            popupAnchor: [0, -11]
                         }),
                         interactive: true,
                     }
@@ -320,7 +320,7 @@
                         rotationAngle: 0.0,
                         rotationOrigin: 'center center',
                         icon: L.icon({
-                            iconUrl: 'markers/HIDROGEOLOGICA.svg',
+                            iconUrl: 'markers/HIDROGEOLÓGICA.svg',
                             iconSize: [24, 24],
                             iconAnchor: [12, 12],
                             popupAnchor: [0, -12]
@@ -334,10 +334,10 @@
                         rotationAngle: 0.0,
                         rotationOrigin: 'center center',
                         icon: L.icon({
-                            iconUrl: 'markers/HIDROGEOQUIMICO.svg',
-                            iconSize: [20, 20],
-                            iconAnchor: [10, 10],
-                            popupAnchor: [0, -10]
+                            iconUrl: 'markers/HIDROGEOQUÍMICO.svg',
+                            iconSize: [22, 22],
+                            iconAnchor: [11, 11],
+                            popupAnchor: [0, -11]
                         }),
                         interactive: true,
                     }
@@ -349,16 +349,16 @@
                         rotationOrigin: 'center center',
                         icon: L.icon({
                             iconUrl: 'markers/PROFUNDIDAD.svg',
-                            iconSize: [20, 20],
-                            iconAnchor: [10, 10],
-                            popupAnchor: [0, -10]
+                            iconSize: [22, 22],
+                            iconAnchor: [11, 11],
+                            popupAnchor: [0, -11]
                         }),
                         interactive: true,
                     }
                     break;
             }
-        }
-        map.createPane('pane_LEGAJOS_1808_3');
+        } 
+			map.createPane('pane_LEGAJOS_1808_3');
         map.getPane('pane_LEGAJOS_1808_3').style.zIndex = 403;
         map.getPane('pane_LEGAJOS_1808_3').style['mix-blend-mode'] = 'normal';
         var layer_LEGAJOS_1808_3 = new L.geoJson(json_LEGAJOS_1808_3, {

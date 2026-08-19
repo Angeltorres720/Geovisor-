@@ -361,27 +361,37 @@
 			map.createPane('pane_LEGAJOS_1808_3');
         map.getPane('pane_LEGAJOS_1808_3').style.zIndex = 403;
         map.getPane('pane_LEGAJOS_1808_3').style['mix-blend-mode'] = 'normal';
-        var layer_LEGAJOS_1808_3 = new L.geoJson(json_LEGAJOS_1808_3, {
-            attribution: '',
-            interactive: true,
-            dataVar: 'json_LEGAJOS_1808_3',
-            layerName: 'layer_LEGAJOS_1808_3',
-            pane: 'pane_LEGAJOS_1808_3',
-            onEachFeature: pop_LEGAJOS_1808_3,
-            pointToLayer: function (feature, latlng) {
-                var context = {
-                    feature: feature,
-                    variables: {}
-                };
-                return L.marker(latlng, style_LEGAJOS_1808_3_0(feature));
-            },
-        });
-        var cluster_LEGAJOS_1808_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
-            spiderfyDistanceMultiplier: 2});
-        cluster_LEGAJOS_1808_3.addLayer(layer_LEGAJOS_1808_3);
 
-        bounds_group.addLayer(layer_LEGAJOS_1808_3);
-        cluster_LEGAJOS_1808_3.addTo(map);
+        function crearCapaTipo(filtroTexto) {
+            return new L.geoJson(json_LEGAJOS_1808_3, {
+                filter: function(feature) {
+                    var tipo = String(feature.properties['TIPO_INF'] || '').trim().toUpperCase();
+                    var normalizado = tipo.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    return normalizado.indexOf(filtroTexto) !== -1;
+                },
+                interactive: true,
+                pane: 'pane_LEGAJOS_1808_3',
+                onEachFeature: pop_LEGAJOS_1808_3,
+                pointToLayer: function (feature, latlng) {
+                    return L.marker(latlng, style_LEGAJOS_1808_3_0(feature));
+                },
+            });
+        }
+
+        var layer_Croquis = crearCapaTipo('CROQUIS');
+        var layer_Hidrogeologica = crearCapaTipo('HIDROGEOLOGIC');
+        var layer_Hidrogeoquimico = crearCapaTipo('HIDROGEOQUIMIC');
+        var layer_Profundidad = crearCapaTipo('PROFUNDIDAD');
+
+        map.addLayer(layer_Croquis);
+        map.addLayer(layer_Hidrogeologica);
+        map.addLayer(layer_Hidrogeoquimico);
+        map.addLayer(layer_Profundidad);
+
+        bounds_group.addLayer(layer_Croquis);
+        bounds_group.addLayer(layer_Hidrogeologica);
+        bounds_group.addLayer(layer_Hidrogeoquimico);
+        bounds_group.addLayer(layer_Profundidad);
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
@@ -436,10 +446,19 @@
             }
         });
         var overlaysTree = [
-            {label: 'LEGAJOS_1808<br /><table><tr><td style="text-align: center;"><img src="legend/LEGAJOS_1808_3_CROQUIS0.png" /></td><td>CROQUIS </td></tr><tr><td style="text-align: center;"><img src="legend/LEGAJOS_1808_3_HIDROGEOLÓGICA1.png" /></td><td>HIDROGEOLÓGICA</td></tr><tr><td style="text-align: center;"><img src="legend/LEGAJOS_1808_3_HIDROGEOQUÍMICO2.png" /></td><td>HIDROGEOQUÍMICO</td></tr><tr><td style="text-align: center;"><img src="legend/LEGAJOS_1808_3_PROFUNDIDAD3.png" /></td><td>PROFUNDIDAD </td></tr></table>', layer: cluster_LEGAJOS_1808_3},
-            {label: "ESRI Topo", layer: layer_ESRITopo_2, radioGroup: 'bm' },
-            {label: "OpenTopoMap", layer: layer_OpenTopoMap_1, radioGroup: 'bm' },
-            {label: "ESRI Satellite", layer: layer_ESRISatellite_0, radioGroup: 'bm' },]
+            {
+                label: '<b>POZOS POR TIPO</b>',
+                children: [
+                    { label: '<img src="markers/CROQUIS.svg" width="18" height="18" style="vertical-align:middle; margin-right:5px;"/> CROQUIS', layer: layer_Croquis },
+                    { label: '<img src="markers/HIDROGEOLOGICA.svg" width="18" height="18" style="vertical-align:middle; margin-right:5px;"/> HIDROGEOLÓGICA', layer: layer_Hidrogeologica },
+                    { label: '<img src="markers/HIDROGEOQUIMICO.svg" width="18" height="18" style="vertical-align:middle; margin-right:5px;"/> HIDROGEOQUÍMICO', layer: layer_Hidrogeoquimico },
+                    { label: '<img src="markers/PROFUNDIDAD.svg" width="18" height="18" style="vertical-align:middle; margin-right:5px;"/> PROFUNDIDAD', layer: layer_Profundidad }
+                ]
+            },
+            { label: "ESRI Topo", layer: layer_ESRITopo_2, radioGroup: 'bm' },
+            { label: "OpenTopoMap", layer: layer_OpenTopoMap_1, radioGroup: 'bm' },
+            { label: "ESRI Satellite", layer: layer_ESRISatellite_0, radioGroup: 'bm' }
+        ];
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,

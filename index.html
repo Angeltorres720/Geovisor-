@@ -379,29 +379,29 @@
         }
 
        var layer_Croquis = crearCapaTipo('CROQUIS');
-var layer_Hidrogeologica = crearCapaTipo('HIDROGEOLOGIC');
-var layer_Hidrogeoquimico = crearCapaTipo('HIDROGEOQUIMIC');
+var layer_Hidrogeologica = crearCapaTipo('HIDROGEOLOGICO');
+var layer_Hidrogeoquimico = crearCapaTipo('HIDROGEOQUIMICO');
 var layer_Profundidad = crearCapaTipo('PROFUNDIDAD');
 
-// Crear los grupos de clusters
+
 var cluster_Croquis = L.markerClusterGroup();
 var cluster_Hidrogeologica = L.markerClusterGroup();
 var cluster_Hidrogeoquimico = L.markerClusterGroup();
 var cluster_Profundidad = L.markerClusterGroup();
 
-// Agregar los marcadores de cada categoría a su cluster
+
 cluster_Croquis.addLayers(layer_Croquis.getLayers());
 cluster_Hidrogeologica.addLayers(layer_Hidrogeologica.getLayers());
 cluster_Hidrogeoquimico.addLayers(layer_Hidrogeoquimico.getLayers());
 cluster_Profundidad.addLayers(layer_Profundidad.getLayers());
 
-// Agregar los clusters al mapa
+
 map.addLayer(cluster_Croquis);
 map.addLayer(cluster_Hidrogeologica);
 map.addLayer(cluster_Hidrogeoquimico);
 map.addLayer(cluster_Profundidad);
 
-// Mantener las capas originales para calcular la extensión
+
 bounds_group.addLayer(layer_Croquis);
 bounds_group.addLayer(layer_Hidrogeologica);
 bounds_group.addLayer(layer_Hidrogeoquimico);

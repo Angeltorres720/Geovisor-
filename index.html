@@ -14,24 +14,48 @@
         <link rel="stylesheet" href="css/MarkerCluster.Default.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <link rel="stylesheet" href="css/leaflet-measure.css">
-        <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-        }
-	/* Cambiar tipo de letra del popup */
+       <style> 
+    html, body, #map { 
+        width: 100%; 
+        height: 100%; 
+        padding: 0; 
+        margin: 0; 
+    } 
+
+    /* Fuente general del popup */
     .leaflet-popup-content {
-        font-family: 'Trebuchet MS', sans-serif;
-        font-size: 14px;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
     }
 
-    /* Poner en negritas los nombres de los campos */
+    /* Tabla del popup */
+    .leaflet-popup-content table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Celdas */
+    .leaflet-popup-content td {
+        padding: 3px 8px;
+        text-align: center;
+    }
+
+    /* Primera columna: nombres de los campos */
     .leaflet-popup-content td:first-child {
         font-weight: bold;
+        text-align: left;
     }
-        </style>
+
+    /* Filas alternadas */
+    .leaflet-popup-content tr:nth-child(odd) {
+        background-color: #e3d8c0;
+    }
+
+    .leaflet-popup-content tr:nth-child(even) {
+        background-color: #ffffff;
+    }
+
+</style>
         <title>Geovisor IBEHA</title>
     </head>
     <body>
